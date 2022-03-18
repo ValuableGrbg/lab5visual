@@ -1,11 +1,16 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using lab5visual.ViewModels;
 
 namespace lab5visual.Views
 {
     public partial class RegWindow : Window
     {
+        public RegWindow(string Reg):this()
+        {
+            this.FindControl<TextBox>("regIn").Text = Reg;
+        }
         public RegWindow()
         {
             InitializeComponent();
@@ -14,8 +19,7 @@ namespace lab5visual.Views
 #endif
             this.FindControl<Button>("ok").Click += async delegate
             {
-                var textbox = this.FindControl<TextBox>("regIn");
-                Close(textbox.Text);
+                Close(this.FindControl<TextBox>("regIn").Text);
             };
         }
 

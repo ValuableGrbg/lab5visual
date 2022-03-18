@@ -25,11 +25,15 @@ namespace lab5visual.Views
                 string clear_path;
 
                 var context = this.DataContext as MainWindowViewModel;
-                clear_path = string.Join(@"\", path);
+                
+                if (path != null) {
+                    clear_path = string.Join(@"\", path);
 
-                string s = File.ReadAllText(clear_path);
+                    string s = File.ReadAllText(clear_path);
 
-                context.Text = s;
+                    context.Text = s;
+                }
+                
                 
             };
 
@@ -54,8 +58,8 @@ namespace lab5visual.Views
         }
         private async void RegSubHandler(object sender, RoutedEventArgs e) 
         {
-            string? str = await new RegWindow().ShowDialog<string?>((Window)this.VisualRoot);
             var context = this.DataContext as MainWindowViewModel;
+            string? str = await new RegWindow(context.Expression).ShowDialog<string?>((Window)this.VisualRoot);
             context.Expression = str;
             context.Res = context.FindRegex();
         }
